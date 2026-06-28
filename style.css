@@ -1,0 +1,1072 @@
+/* ==========================================================================
+   CONFIGURAÇÕES GERAIS E RESETS
+   ========================================================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-shadow: border-box;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #000000;
+}
+
+/* ==========================================================================
+    TELA DE BOAS-VINDAS (SPLASH SCREEN) 
+   ========================================================================== */
+
+/* TELA DE CARREGAMENTO */
+#splash-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #050508;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 99999;
+    opacity: 1;
+    /* Configurado para 2 segundos para o background sumir suavemente */
+    transition: opacity 2.0s ease-in-out;
+}
+
+#splash-screen.fade-out {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.splash-content {
+    text-align: center;
+}
+
+
+.splash-title {
+    font-size: 2.5rem;
+    color: #fff;
+    font-family: monospace;
+    border-right: 3px solid #8a2be2;
+    white-space: nowrap;
+    overflow: hidden;
+    margin: 0 auto 20px auto;
+    width: 0;
+    animation:
+        digitar 1.5s steps(15, end) forwards,
+        piscar-cursor 0.5s step-end infinite alternate;
+}
+
+
+@keyframes digitar {
+    from {
+        width: 0;
+    }
+
+    to {
+        width: 100%;
+    }
+}
+
+@keyframes piscar-cursor {
+    from {
+        border-color: transparent;
+    }
+
+    to {
+        border-color: #8a2be2;
+    }
+}
+
+
+.splash-loader {
+    width: 0;
+    height: 3px;
+    background: #4b064b;
+    margin: 0 auto;
+    border-radius: 2px;
+    animation: carregar 1.5s infinite ease-in-out;
+}
+
+@keyframes carregar {
+    0% {
+        width: 0;
+    }
+
+    50% {
+        width: 100px;
+    }
+
+    100% {
+        width: 0;
+    }
+}
+
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background-color: #050508;
+    color: #fff;
+    overflow-x: hidden;
+}
+
+section {
+    padding: 80px 20px;
+    width: 100%;
+}
+
+.secao-escura {
+    background-color: #0b0b10;
+}
+
+.secao-intermediaria {
+    background-color: #08080c;
+}
+
+.titulo-secao {
+    font-size: 2.2rem;
+    text-align: center;
+    margin-bottom: 50px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.titulo-secao span {
+    color: #8a2be2;
+    text-shadow: 0 0 10px rgba(138, 43, 226, 0.5);
+}
+
+/* ==========================================================================
+   HEADER & MENU HAMBÚRGUER (RESPONSIVO)
+   ========================================================================== */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 5%;
+    background-color: rgba(5, 5, 8, 0.95);
+    backdrop-filter: blur(10px);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+header .logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+header .logo span {
+    color: #8a2be2;
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+    gap: 25px;
+}
+
+.nav-links a {
+    color: #cbd5e1;
+    text-decoration: none;
+    font-size: 1rem;
+    font-weight: 500;
+    transition: 0.3s;
+}
+
+.nav-links a:hover {
+    color: #8a2be2;
+}
+
+
+
+.menu-hamburger {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    cursor: pointer;
+    z-index: 1010;
+    transition: 0.3s;
+    display: none;
+}
+
+.line {
+    width: 28px;
+    height: 3px;
+    background-color: #fff;
+    transition: 0.4s ease;
+    border-radius: 2px;
+}
+
+
+
+.menu-hamburger.active .line-1 {
+    opacity: 0;
+    /* Oculta a linha de cima para limpar o visual */
+}
+
+.menu-hamburger.active .line-2 {
+
+    transform: rotate(0deg) translateY(0px) translateX(5px);
+    height: 25px;
+    width: 3px;
+    background-color: #8a2be2;
+
+}
+
+.menu-hamburger.active .line-3 {
+    transform: rotate(0deg) translateY(-8px) translateX(-5px);
+    width: 15px;
+    height: 12px;
+    border-bottom: 3px solid #8a2be2;
+    border-left: 3px solid #8a2be2;
+    border-bottom-left-radius: 12px;
+    background: transparent;
+}
+
+/* ==========================================================================
+   RESPONSIVIDADE DO MEU MENU NO CELULAR
+   ========================================================================== */
+@media (max-width: 768px) {
+    .menu-hamburger {
+        display: flex;
+    }
+
+    .nav-links {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        height: 100vh;
+        width: 75%;
+        background-color: #09090e;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 35px;
+        transition: 0.4s ease;
+        box-shadow: -5px 0 25px rgba(85, 4, 110, 0.534);
+    }
+
+    .nav-links.active {
+        right: 0;
+    }
+
+    .nav-links a {
+        font-size: 1.25rem;
+    }
+}
+
+/* ==========================================================================
+   INÍCIO (HERO) - COM EFEITO DE BORDA GIRATÓRIA INFINITA
+   ========================================================================== */
+.hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding-top: 100px;
+    background: radial-gradient(circle at center, rgba(138, 43, 226, 0.12) 0%, rgba(5, 5, 8, 1) 70%);
+}
+
+.logo-hero {
+    position: relative;
+    width: 185px;
+    height: 185px;
+    border-radius: 50%;
+    margin-bottom: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.logo-hero::before {
+    content: '';
+    position: absolute;
+    top: -4px;
+    left: -4px;
+    right: -4px;
+    bottom: -4px;
+    border-radius: 50%;
+    background: linear-gradient(0deg, transparent, transparent, #8a2be2, #00ffff);
+    animation: girarBordaPerfil 2s linear infinite;
+    z-index: 1;
+}
+
+
+.logo-hero::after {
+    content: '';
+    position: absolute;
+    top: -4px;
+    left: -4px;
+    right: -4px;
+    bottom: -4px;
+    border-radius: 50%;
+    background: linear-gradient(0deg, transparent, transparent, #8a2be2, #00ffff);
+    animation: girarBordaPerfil 2s linear infinite;
+    z-index: 1;
+    filter: blur(15px);
+    opacity: 0.7;
+}
+
+
+.img-logo-principal {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    position: relative;
+    z-index: 2;
+    border: 5px solid #050508;
+
+}
+
+.hero h1 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+}
+
+.hero p {
+    font-size: 1.3rem;
+    color: #94a3b8;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+@keyframes girarBordaPerfil {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.contador-visitas {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 8px 20px;
+    border-radius: 50px;
+    font-size: 0.9rem;
+    color: #cbd5e1;
+    margin-bottom: 35px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.contador-visitas i {
+    color: #8a2be2;
+}
+
+.btn-neon {
+    display: inline-block;
+    padding: 14px 35px;
+    background: #8a2be2;
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 50px;
+    text-transform: uppercase;
+    font-size: 0.95rem;
+    letter-spacing: 0.5px;
+    transition: 0.3s;
+    box-shadow: 0 0 15px rgba(138, 43, 226, 0.4);
+}
+
+.btn-neon:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 0 25px rgba(138, 43, 226, 0.7);
+}
+
+/* ==========================================================================
+   VÍDEOS (1 VÍDEO CENTRALIZADO + BOTÃO PRESERVADO E MODERNO)
+   ========================================================================== */
+.videos-grid-single {
+    display: block;
+    max-width: 600px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.video-item {
+    background: #111116;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.03);
+    display: flex;
+    flex-direction: column;
+}
+
+.video-wrapper {
+    position: relative;
+    width: 100%;
+    height: auto;
+    aspect-ratio: auto;
+    background: #000;
+}
+
+.video-wrapper video {
+    width: 100%;
+    height: auto;
+    max-height: 70vh;
+    display: block;
+    object-fit: contain;
+}
+
+.video-cta {
+    padding: 25px 20px;
+    text-align: center;
+    background: linear-gradient(to bottom, #111116, #09090b);
+}
+
+.video-cta p {
+    font-size: 0.95rem;
+    color: #cbd5e1;
+    margin-bottom: 20px;
+    line-height: 1.5;
+}
+
+.btn-video-zap {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background: #25d366;
+    color: #ffffff;
+    border: none;
+    padding: 14px 28px;
+    font-size: 1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border-radius: 50px;
+    cursor: pointer;
+    width: 100%;
+    max-width: 320px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
+}
+
+.btn-video-zap:hover {
+    background: #20ba56;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(37, 211, 102, 0.5);
+}
+
+/* ==========================================================================
+   MINHA HISTÓRIA (SOBRE MIM) - TOTALMENTE REPARADO E RESPONSIVO
+   ========================================================================== */
+.sobre-container {
+    display: flex;
+    flex-direction: column;
+    gap: 35px;
+    max-width: 1000px;
+    margin: 0 auto;
+    align-items: center;
+}
+
+/* Contêiner que esconde a barra de rolagem horizontal */
+.galeria-overflow {
+    width: 100%;
+    overflow: hidden;
+    padding: 20px 0;
+    position: relative;
+}
+
+/* Onde a mágica acontece: alinha lado a lado e roda a animação */
+.galeria-track {
+    display: flex;
+    gap: 20px;
+    /* Espaço entre as fotos */
+    width: max-content;
+    /* Garante que o container tenha a largura de todas as fotos juntas */
+    animation: rolarEsquerda 15s linear infinite;
+}
+
+/* Pausa o movimento quando o usuário passa o mouse por cima (opcional, mas recomendado) */
+.galeria-track:hover {
+    animation-play-state: paused;
+}
+
+/* Ajustes nas caixas das fotos */
+.sobre-foto-box {
+    width: 300px;
+    /* Largura fixa para manter o padrão */
+    flex-shrink: 0;
+    /* Impede as fotos de esmagarem */
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.sobre-foto-box img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+    /* Mudei para cover para preencherem o box de forma elegante */
+}
+
+/* Animação que move as fotos exatamente até a metade (onde começam os clones) */
+@keyframes rolarEsquerda {
+    0% {
+        transform: translateX(0);
+    }
+
+    100% {
+        /* Move metade do tamanho total do track (calculando as fotos + gaps) */
+        transform: translateX(calc(-50% - 10px));
+    }
+}
+
+.sobre-texto {
+    text-align: center;
+    width: 100%;
+}
+
+.sobre-texto h3 {
+    font-size: 1.6rem;
+    margin-bottom: 15px;
+    color: #fff;
+}
+
+.sobre-texto p {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #94a3b8;
+    margin-bottom: 15px;
+}
+
+@media (min-width: 768px) {
+    .sobre-container {
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+    .sobre-texto {
+        text-align: left;
+        flex: 1;
+    }
+
+    .sobre-foto-box {
+        flex: 0.8;
+    }
+}
+
+/* ==========================================================================
+   OUÇA & BAIXE O CD - TOTALMENTE REPARADO E RESPONSIVO
+   ========================================================================== */
+.baixar-cd-container {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    max-width: 900px;
+    margin: 0 auto;
+    align-items: center;
+}
+
+.cd-visual-card {
+    background: #111116;
+    border-radius: 16px;
+    padding: 30px 25px;
+    width: 100%;
+    max-width: 340px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+    text-align: center;
+    border: 1px solid rgba(255, 255, 255, 0.02);
+}
+
+.capa-container {
+    width: 170px;
+    height: 170px;
+    margin: 0 auto 20px auto;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 6px solid #1a1a24;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.7);
+}
+
+.capa-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.capa-container.rodando {
+    animation: rodarCD 10s linear infinite;
+}
+
+@keyframes rodarCD {
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.player-info-musica h3 {
+    font-size: 1.1rem;
+    color: #fff;
+    margin-bottom: 5px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.player-info-musica p {
+    font-size: 0.85rem;
+    color: #64748b;
+    margin-bottom: 15px;
+}
+
+.tempo-wrapper {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8rem;
+    color: #94a3b8;
+    margin-bottom: 8px;
+}
+
+.barra-progresso-container {
+    width: 100%;
+    height: 5px;
+    background: #1e1e28;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.barra-progresso {
+    height: 100%;
+    width: 0%;
+    background: #8a2be2;
+    border-radius: 10px;
+    transition: width 0.1s linear;
+}
+
+.player-controles-nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+.btn-control {
+    background: none;
+    border: none;
+    color: #94a3b8;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn-control:hover {
+    color: #8a2be2;
+}
+
+.btn-control.main-play {
+    width: 45px;
+    height: 45px;
+    background: #8a2be2;
+    color: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    box-shadow: 0 4px 10px rgba(138, 43, 226, 0.3);
+}
+
+.btn-control.main-play:hover {
+    transform: scale(1.05);
+    background: #9d3bf5;
+}
+
+.btn-download {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    background: linear-gradient(135deg, #8a2be2, #6a1b9a);
+
+    color: #fff;
+    padding: 16px 32px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(138, 43, 226, 0.3);
+    border: none;
+    cursor: pointer;
+}
+
+.btn-download:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(138, 43, 226, 0.5);
+    background: linear-gradient(135deg, #9d3bf5, #8a2be2);
+}
+
+.btn-download:active {
+    transform: translateY(0);
+}
+
+.btn-download {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin: 7% auto 0 auto;
+    width: max-content;
+    background: #8a2be2;
+    color: #fff;
+    padding: 15px 32px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: 0.3s;
+    box-shadow: 0 4px 15px rgba(138, 43, 226, 0.3);
+}
+
+.btn-download:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(138, 43, 226, 0.6);
+}
+
+@media (min-width: 768px) {
+    .baixar-cd-container {
+        flex-direction: row;
+        justify-content: space-between;
+
+    }
+
+    .cd-texto-download {
+        text-align: left;
+        flex: 1;
+        padding-left: 40px;
+    }
+}
+   
+
+
+/* ==========================================================================
+   PRÓXIMOS EVENTOS
+   ========================================================================== */
+.agenda-grid {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.evento-card {
+    background: #111116;
+    border-radius: 16px;
+    overflow: hidden;
+    width: 100%;
+    max-width: 400px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.02);
+}
+
+.banner-box {
+    position: relative;
+    width: 100%;
+}
+
+.banner-box img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: contain;
+}
+
+.data-tag {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    background: #8a2be2;
+    color: #fff;
+    padding: 6px 14px;
+    font-weight: bold;
+    font-size: 0.85rem;
+    border-radius: 4px;
+    text-transform: uppercase;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.evento-detalhes {
+    padding: 22px;
+}
+
+.evento-detalhes h4 {
+    font-size: 1.25rem;
+    margin-bottom: 12px;
+}
+
+.evento-detalhes p {
+    font-size: 0.95rem;
+    color: #94a3b8;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.evento-detalhes p i {
+    color: #8a2be2;
+}
+
+.btn-evento {
+    display: block;
+    text-align: center;
+    background: transparent;
+    border: 1px solid #8a2be2;
+    color: #fff;
+    padding: 12px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    margin-top: 18px;
+    transition: 0.3s;
+}
+
+.btn-evento:hover {
+    background: #8a2be2;
+    box-shadow: 0 0 15px rgba(138, 43, 226, 0.4);
+}
+
+/* ==========================================================================
+   SOLICITE UM ORÇAMENTO (CONTATO) - TOTALMENTE REPARADO E RESPONSIVO
+   ========================================================================== */
+.contato-container {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    max-width: 950px;
+    margin: 0 auto;
+}
+
+.contato-info {
+    width: 100%;
+    text-align: center;
+}
+
+.contato-info h4 {
+    font-size: 1.4rem;
+    margin-bottom: 12px;
+}
+
+.contato-info .margem-b {
+    color: #94a3b8;
+    margin-bottom: 25px;
+    line-height: 1.5;
+}
+
+.contato-metodo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 15px;
+    font-size: 1.1rem;
+}
+
+.contato-metodo i {
+    color: #25d366;
+    font-size: 1.3rem;
+}
+
+.contato-metodo span a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.form-contato {
+    width: 100%;
+    background: #111116;
+    padding: 30px 25px;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.02);
+}
+
+.form-grupo {
+    margin-bottom: 15px;
+}
+
+.form-grupo input,
+.form-grupo textarea {
+    width: 100%;
+    padding: 14px;
+    background: #050508;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    color: #fff;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    outline: none;
+    transition: 0.3s;
+}
+
+.form-grupo input:focus,
+.form-grupo textarea:focus {
+    border-color: #8a2be2;
+}
+
+.btn-enviar {
+    width: 100%;
+    padding: 15px;
+    background: #25d366;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 1rem;
+    cursor: pointer;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    transition: 0.3s;
+}
+
+.btn-enviar:hover {
+    background: #20ba56;
+}
+
+@media (min-width: 768px) {
+    .contato-container {
+        flex-direction: row;
+        align-items: center;
+    }
+
+    .contato-info {
+        text-align: left;
+        flex: 1;
+    }
+
+    .form-contato {
+        flex: 1.2;
+    }
+
+    .contato-metodo {
+        justify-content: flex-start;
+    }
+}
+
+/* ==========================================================================
+   FOOTER & WHATSAPP FIXO
+   ========================================================================== */
+footer {
+    text-align: center;
+    padding: 30px 20px;
+    background: #030305;
+    border-top: 1px solid rgba(255, 255, 255, 0.02);
+    font-size: 0.9rem;
+    color: #64748b;
+}
+
+.btn-whatsapp-fixo {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    width: 60px;
+    height: 60px;
+    background-color: #25d366;
+    color: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.8rem;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+    z-index: 999;
+    transition: 0.3s;
+    text-decoration: none;
+}
+
+.btn-whatsapp-fixo:hover {
+    transform: scale(1.1);
+    background-color: #20ba56;
+}
+
+.logo-grid-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+    max-width: 1100px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.logo-card {
+    background: #111116;
+    padding: 25px;
+    border-radius: 16px;
+    width: 100%;
+    max-width: 320px;
+
+    text-align: center;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.img-wrapper {
+    width: 100%;
+    height: 180px;
+    margin-bottom: 20px;
+    overflow: hidden;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.03);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.img-wrapper img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+.logo-card h3 {
+    font-size: 1.1rem;
+    margin-bottom: 8px;
+    color: #fff;
+}
+
+.logo-card p {
+    font-size: 0.9rem;
+    color: #94a3b8;
+    margin-bottom: 20px;
+}
+
+.logo-card .btn-download {
+    width: 100%;
+    justify-content: center;
+    margin-top: auto;
+}
